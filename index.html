@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPLG Playground: Media Interaktif PPLG SMK</title>
+    <style>
+        :root {
+            --bg: #f4f8fc;
+            --panel: #ffffff;
+            --panel-2: #f8fbff;
+            --line: #dbe6f1;
+            --gold: #1d4ed8;
+            --gold-2: #2563eb;
+            --green: #2563eb;
+            --accent: #1e3a8a;
+            --text: #17324a;
+            --muted: #4b667f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background:
+                linear-gradient(135deg, #f4f8fc 0%, #edf4ff 45%, #f8fbff 100%);
+            min-height: 100vh;
+            padding: 18px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            border: 1px solid var(--line);
+            border-radius: 36px;
+            padding: 22px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
+        }
+
+        /* BANNER JUDUL APLIKASI */
+        .app-title {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 45%, #0ea5e9 100%);
+            border-radius: 28px;
+            padding: 26px 24px;
+            margin-bottom: 18px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+        }
+
+        .app-title::before,
+        .app-title::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .app-title::before { width: 180px; height: 180px; top: -70px; right: -40px; }
+        .app-title::after { width: 130px; height: 130px; bottom: -70px; left: -30px; }
+
+        .app-title .brand {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            line-height: 1.1;
+        }
+
+        .app-title .brand .logo-mark {
+            font-size: 1.9rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .app-title .tagline {
+            position: relative;
+            margin-top: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .app-title .chips {
+            position: relative;
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .app-title .chips span {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        /* HEADER 3 KARTU SERAGAM */
+        .header {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            align-items: stretch;
+            margin-bottom: 18px;
+        }
+
+        .hcard {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #ffffff 0%, #f4f8ff 100%);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 16px 18px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+        }
+
+        .hcard .hlogo {
+            flex: 0 0 auto;
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid #e5edf5;
+            padding: 7px;
+        }
+
+        .hcard .avatar {
+            flex: 0 0 auto;
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+
+        .hcard .avatar-photo {
+            flex: 0 0 auto;
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            object-fit: cover;
+            object-position: center 30%;
+            border: 1px solid #e5edf5;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.18);
+        }
+
+        .hcard .htext { min-width: 0; }
+
+        .hcard .htitle {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #12304a;
+            line-height: 1.22;
+            margin-bottom: 3px;
+        }
+
+        .hcard .hsub {
+            font-size: 0.76rem;
+            color: var(--muted);
+            line-height: 1.3;
+        }
+
+        .hcard.jurusan-card .htitle { color: var(--gold); }
+
+        /* DASHBOARD seperti link */
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, #f8fbff 0%, #edf4ff 100%);
+            border: 1px solid var(--line);
+            padding: 12px 16px;
+            border-radius: 24px;
+            margin-bottom: 16px;
+            gap: 10px;
+            font-weight: 500;
+            color: var(--text);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+        }
+
+        .progress-badge {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid var(--line);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .score-badge {
+            background: #eff6ff;
+            color: #1e3a8a;
+            border: 1px solid var(--line);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        /* NAVIGASI MATERI (5 tombol) */
+        .week-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 18px;
+            background: #f8fbff;
+            border: 1px solid #e5edf5;
+            padding: 10px;
+            border-radius: 24px;
+        }
+
+        .week-btn {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            padding: 8px 14px;
+            border-radius: 999px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.18s ease;
+            font-weight: 600;
+            font-size: 0.78rem;
+        }
+
+        .week-btn:hover:not(.locked) { background: #f1f5f9; }
+
+        .week-btn.active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            font-weight: bold;
+            transform: scale(1.02);
+        }
+
+        .week-btn.completed {
+            background: #f0fdf4;
+            color: #15803d;
+            text-decoration: line-through;
+            opacity: 0.9;
+        }
+
+        .week-btn.locked {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        /* GRID UTAMA */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            border-radius: 26px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+            transition: transform 0.18s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            color: #1e3a8a;
+            margin-bottom: 12px;
+            font-size: 1.08rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .materi-intro {
+            background: linear-gradient(135deg, #eff6ff 0%, #f8fbff 100%);
+            border: 1px solid var(--line);
+            border-left: 4px solid #2563eb;
+            padding: 12px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: var(--text);
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.08);
+        }
+
+        .materi-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #1d4ed8;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .materi-intro p { margin-bottom: 4px; }
+
+        .detail-list {
+            margin-top: 8px;
+            border-top: 1px dashed var(--line);
+            padding-top: 8px;
+        }
+
+        .detail-list ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .detail-list li {
+            margin-bottom: 5px;
+            font-size: 0.86rem;
+            line-height: 1.4;
+        }
+
+        .detail-list b { color: #1e3a8a; }
+
+        .materi-intro ul { margin: 6px 0; padding-left: 18px; }
+        .materi-intro li { margin-bottom: 4px; font-size: 0.86rem; line-height: 1.4; }
+
+        .tip {
+            background: #eff6ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 0.84rem;
+            color: #0c4a6e;
+        }
+
+        /* SUB-NAVIGASI (PERTEMUAN) */
+        .sub-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 18px;
+            background: #eaf2ff;
+            border: 1px solid #dbe6f1;
+            padding: 10px;
+            border-radius: 24px;
+        }
+
+        .sub-btn {
+            background: #ffffff;
+            border: 1px solid #dbe6f1;
+            color: #17324a;
+            padding: 7px 13px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            font-weight: 600;
+            font-size: 0.72rem;
+        }
+
+        .sub-btn:hover { background: #f1f5f9; }
+
+        .sub-btn.active {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: #ffffff;
+            font-weight: bold;
+            transform: scale(1.02);
+        }
+
+        .sub-btn.completed {
+            background: #f0fdf4;
+            color: #15803d;
+            border-color: #bbf7d0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 280px;
+            background: #f8fbff;
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 12px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+        }
+
+        iframe {
+            width: 100%;
+            min-height: 330px;
+            background: white;
+            border-radius: 18px;
+            border: none;
+            box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+        }
+
+        button {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 800;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: transform 0.18s ease, opacity 0.18s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.18);
+        }
+
+        button:hover {
+            filter: brightness(1.03);
+            transform: scale(1.02);
+        }
+
+        /* QUIZ SECTION */
+        .quiz-section {
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            padding: 18px;
+            margin-top: 8px;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.07);
+        }
+
+        .quiz-section h3 {
+            color: #1e3a8a;
+            margin-bottom: 16px;
+        }
+
+        .quiz-option {
+            background: #f8fbff;
+            border: 1px solid var(--line);
+            padding: 10px 14px;
+            margin: 8px 0;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .quiz-option:hover {
+            background: #eff6ff;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: bold;
+            border-color: #bfdbfe;
+        }
+
+        .feedback {
+            background: #f8fbff;
+            color: var(--text);
+            border: 1px solid var(--line);
+            padding: 14px;
+            border-radius: 28px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .jurusan img {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #e5edf5;
+            padding: 6px;
+            margin-bottom: 4px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.72rem;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            padding-top: 14px;
+        }
+
+        .footer-logos {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .footer-logos img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid #e5edf5;
+            padding: 4px;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 16px;
+            }
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                grid-template-columns: 1fr;
+            }
+            .app-title .brand { font-size: 1.4rem; }
+            .dashboard { align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- BANNER JUDUL -->
+    <div class="app-title">
+        <div class="brand"><span class="logo-mark">🎮</span> PPLG Playground</div>
+        <div class="tagline">Media Interaktif PPLG SMK</div>
+        <div class="chips">
+            <span>5 Materi</span>
+            <span>25 Pertemuan</span>
+            <span>Visual & Contoh Koding</span>
+            <span>Kuis Interaktif</span>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="hcard">
+            <img class="hlogo" src="gambar/smk.png" alt="Logo Sekolah" />
+            <div class="htext">
+                <div class="htitle">SMK BAKTI NUSANTARA 666 CILEUNYI</div>
+                <div class="hsub">Terakreditasi A · NPSN: 20267919</div>
+            </div>
+        </div>
+        <div class="hcard jurusan-card">
+            <img class="hlogo" src="gambar/jurusan.png" alt="Logo Jurusan" />
+            <div class="htext">
+                <div class="htitle">Pengembangan Perangkat Lunak dan Gim</div>
+                <div class="hsub">Program Keahlian PPLG</div>
+            </div>
+        </div>
+        <div class="hcard">
+            <img class="avatar-photo" src="gambar/guru.jpg" alt="Foto Asep Ramdani" />
+            <div class="htext">
+                <div class="htitle">Asep Ramdani, S.Kom., Gr.</div>
+                <div class="hsub">Guru Pemrograman PPLG</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+        <span>📅 Tahun Ajaran 2025/2026</span>
+        <span>📚 25 Pertemuan PPLG</span>
+        <span class="progress-badge" id="progressText">📊 Progres: 0% (0/5 materi)</span>
+        <span class="score-badge" id="scoreText">🏆 Poin: 0</span>
+    </div>
+
+    <!-- NAVIGASI MATERI UTAMA -->
+    <div class="week-nav" id="materiNav"></div>
+
+    <!-- NAVIGASI SUB-MATERI / PERTEMUAN -->
+    <div class="sub-nav" id="subNav"></div>
+
+    <!-- MAIN GRID -->
+    <div class="main-grid">
+        <div class="card">
+            <h3><span id="materiTitle"></span></h3>
+            <div id="materiDesc" class="materi-intro"></div>
+            <textarea id="codeEditor" placeholder="Kode contoh materi ini..."></textarea>
+            <button id="runBtn">▶️ JALANKAN & PREVIEW</button>
+        </div>
+        <div class="card">
+            <h3>🖥️ HASIL PREVIEW (VISUAL & CONTOH KODING)</h3>
+            <iframe id="previewFrame" title="Preview"></iframe>
+        </div>
+    </div>
+
+    <!-- QUIZ SECTION -->
+    <div class="quiz-section">
+        <h3 id="quizTitle">📝 Kuis</h3>
+        <div id="quizContainer"></div>
+        <button id="submitQuizBtn">✅ SUBMIT JAWABAN</button>
+        <div id="quizFeedback" class="feedback"></div>
+    </div>
+
+    <footer>
+        <div class="footer-logos">
+            <img src="gambar/smk.png" alt="Logo SMK" />
+            <img src="gambar/jurusan.png" alt="Logo Jurusan" />
+        </div>
+        Media Ajar Interaktif PPLG — SMK Bakti Nusantara 666<br>
+        Asep Ramdani, S.Kom., Gr.
+    </footer>
+</div>
+
+<script>
+    const materiData = [
+      {
+        kode: "TI_PPLG_1",
+        title: "Wawasan Dunia Kerja PPLG",
+        subs: [
+          {
+            tag: "Konsep Dasar",
+            title: "Konsep Dasar Pengembangan Perangkat Lunak dan Gim",
+            penjelasan: "<p>PPLG adalah keahlian membuat <b>perangkat lunak</b> (aplikasi & web) dan <b>gim</b> (game). Setiap produk dibuat lewat tahapan teratur bernama <b>SDLC</b>.</p><div class=\"detail-list\"><ul><li><b>Perangkat lunak</b>: aplikasi mobile, website, sistem kasir.</li><li><b>Gim</b>: game edukasi, game mobile, game konsol.</li><li><b>SDLC</b>: Analisis &rarr; Desain &rarr; Coding &rarr; Testing &rarr; Rilis &rarr; Pemeliharaan.</li></ul></div><div class=\"tip\">💡 Analogi: membuat software seperti membangun rumah — harus direncanakan dulu, baru dibangun, lalu diuji.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Konsep Dasar PPLG</h1>\n<p class=\"sub\">Siklus Pengembangan (SDLC)</p>\n<div class=\"flow\"><span class=\"step\">1. Analisis</span><span class=\"arr\">&rarr;</span><span class=\"step\">2. Desain</span><span class=\"arr\">&rarr;</span><span class=\"step\">3. Coding</span><span class=\"arr\">&rarr;</span><span class=\"step\">4. Testing</span><span class=\"arr\">&rarr;</span><span class=\"step\">5. Rilis</span></div><div class=\"note\" id=\"info\">Klik tombol untuk melihat penjelasan tiap tahap.</div><button onclick=\"next()\">Lihat Tahap Berikutnya</button>\n</div>\n<script>\nvar t=['1. Analisis: mengumpulkan kebutuhan.','2. Desain: membuat rancangan tampilan & alur.','3. Coding: menulis program.','4. Testing: menguji bug.','5. Rilis: produk dipakai pengguna.'];var i=0;function next(){document.getElementById('info').innerText=t[i];i=(i+1)%t.length;}next();\n<\/script>\n</body>\n</html>",
+            quizQ: "Apa kepanjangan dari PPLG?",
+            quizOpt: ["Pengembangan Perangkat Lunak dan Gim", "Program Pembelajaran Logika Geometri", "Pusat Pelatihan Lulusan Guru", "Perangkat Penyimpanan Lokal Global"],
+            quizAns: 0
+          },
+          {
+            tag: "Manajemen Proyek",
+            title: "Manajemen Proyek & Kebutuhan Pelanggan",
+            penjelasan: "<p>Manajemen proyek adalah cara mengatur pekerjaan agar <b>selesai tepat waktu</b> dan <b>sesuai keinginan pelanggan</b>.</p><div class=\"detail-list\"><ul><li>Kumpulkan <b>kebutuhan pelanggan</b> (fitur apa yang diminta).</li><li>Buat <b>jadwal</b> dan bagi tugas ke anggota tim.</li><li>Pantau progres dengan papan tugas (To Do, Proses, Selesai).</li></ul></div><div class=\"tip\">💡 Tools populer: Trello, Jira, Notion untuk memantau tugas tim.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Manajemen Proyek</h1>\n<p class=\"sub\">Papan Tugas (Kanban) Sederhana</p>\n<div class=\"grid3\"><div class=\"card2\"><b>To Do</b><br>- Desain login<br>- Buat database</div><div class=\"card2\"><b>Proses</b><br>- Halaman utama</div><div class=\"card2\"><b>Selesai</b><br>- Logo aplikasi</div></div><div class=\"note\" id=\"o\">Aplikasi minimal harus memenuhi kebutuhan pelanggan.</div><button onclick=\"cek()\">Validasi Kebutuhan Pelanggan</button>\n</div>\n<script>\nfunction cek(){var fitur=['Login','Daftar Produk','Pembayaran'];document.getElementById('o').innerText='Kebutuhan pelanggan: '+fitur.join(', ')+'. Semua harus tersedia agar proyek diterima.';}\n<\/script>\n</body>\n</html>",
+            quizQ: "Tujuan utama manajemen proyek perangkat lunak adalah...",
+            quizOpt: ["Membuat program serumit mungkin", "Menyelesaikan proyek tepat waktu sesuai kebutuhan pelanggan", "Menghindari kerja tim", "Memakai bahasa pemrograman terbanyak"],
+            quizAns: 1
+          },
+          {
+            tag: "Validasi UX",
+            title: "Validasi Perangkat Lunak sesuai User Experience (UX)",
+            penjelasan: "<p><b>UX (User Experience)</b> adalah pengalaman pengguna saat memakai aplikasi. Aplikasi yang baik harus <b>mudah, cepat, dan nyaman</b>.</p><div class=\"detail-list\"><ul><li>Tombol jelas dan mudah ditemukan.</li><li>Alur singkat (tidak berbelit-belit).</li><li>Validasi = menguji aplikasi langsung ke calon pengguna.</li></ul></div><div class=\"tip\">💡 UX baik membuat pengguna betah; UX buruk membuat pengguna kabur.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Validasi UX</h1>\n<p class=\"sub\">Bandingkan Desain Baik vs Buruk</p>\n<div class=\"grid\"><div class=\"good\"><b>UX Baik</b><br>Tombol besar &amp; jelas:<br><button style=\"background:#16a34a;margin:8px auto 0\">BELI SEKARANG</button></div><div class=\"bad\"><b>UX Buruk</b><br>Tombol kecil &amp; samar:<br><a style=\"font-size:9px;color:#999\">beli</a></div></div><div class=\"note\" id=\"o\">Klik untuk menilai UX.</div><button onclick=\"nilai()\">Uji UX</button>\n</div>\n<script>\nfunction nilai(){document.getElementById('o').innerText='Desain kiri lulus uji UX: tombol jelas, kontras baik, mudah diklik.';}\n<\/script>\n</body>\n</html>",
+            quizQ: "Aplikasi dengan UX yang baik memiliki ciri...",
+            quizOpt: ["Tampilan rumit dan banyak langkah", "Tombol kecil dan sulit ditemukan", "Mudah, cepat, dan nyaman digunakan", "Sengaja dibuat membingungkan"],
+            quizAns: 2
+          },
+          {
+            tag: "Cloud & Jaringan",
+            title: "Perkembangan Teknologi: Jaringan & Cloud Computing",
+            penjelasan: "<p><b>Cloud computing</b> adalah menjalankan & menyimpan aplikasi di <b>server internet</b>, bukan di komputer sendiri.</p><div class=\"detail-list\"><ul><li>Bisa diakses dari mana saja lewat internet.</li><li>Penyedia besar: <b>AWS, Google Cloud, Microsoft Azure</b>.</li><li>Contoh: Google Drive, YouTube, game online — semua berjalan di cloud.</li></ul></div><div class=\"tip\">💡 On-premise = server sendiri; Cloud = sewa server, lebih hemat & fleksibel.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Cloud Computing</h1>\n<p class=\"sub\">Penyedia Cloud & Perbandingan</p>\n<div class=\"center\"><span class=\"pill\">☁️ AWS</span><span class=\"pill\">☁️ Google Cloud</span><span class=\"pill\">☁️ Azure</span></div><table><tr><th>Aspek</th><th>Server Sendiri</th><th>Cloud</th></tr><tr><td>Biaya awal</td><td>Mahal</td><td>Murah (sewa)</td></tr><tr><td>Akses</td><td>Lokal</td><td>Dari mana saja</td></tr><tr><td>Perawatan</td><td>Sendiri</td><td>Oleh penyedia</td></tr></table>\n</div>\n</body>\n</html>",
+            quizQ: "Manakah yang termasuk penyedia layanan cloud computing?",
+            quizOpt: ["Microsoft Word", "Amazon Web Services (AWS)", "Adobe Photoshop", "Notepad"],
+            quizAns: 1
+          },
+          {
+            tag: "Profesi & Usaha",
+            title: "Jenis Profesi & Peluang Usaha di Bidang PPLG",
+            penjelasan: "<p>Lulusan PPLG punya banyak pilihan <b>profesi</b> dan <b>peluang usaha</b> di industri teknologi.</p><div class=\"detail-list\"><ul><li><b>Software Engineer</b>: membangun aplikasi.</li><li><b>UI/UX Designer</b>: merancang tampilan.</li><li><b>Game Developer</b>: membuat game.</li><li><b>Peluang usaha</b>: freelance, startup, jasa pembuatan website.</li></ul></div><div class=\"tip\">💡 Banyak developer sukses memulai dari freelance saat masih sekolah.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Profesi PPLG</h1>\n<p class=\"sub\">Pilihan Karier & Peluang Usaha</p>\n<div class=\"grid\"><div class=\"card2\"><b>💻 Software Engineer</b><br>Bangun aplikasi web/mobile.</div><div class=\"card2\"><b>🎨 UI/UX Designer</b><br>Rancang tampilan & pengalaman.</div><div class=\"card2\"><b>🎮 Game Developer</b><br>Buat game dengan Unity/Godot.</div><div class=\"card2\"><b>☁️ Cloud Engineer</b><br>Kelola server cloud.</div></div><div class=\"note\" id=\"o\">Klik untuk melihat ide usaha.</div><button onclick=\"ide()\">Ide Peluang Usaha</button>\n</div>\n<script>\nvar u=['Jasa pembuatan website UMKM','Freelance aplikasi mobile','Startup game edukasi','Digital agency'];var i=0;function ide(){document.getElementById('o').innerText='Ide usaha: '+u[i];i=(i+1)%u.length;}ide();\n<\/script>\n</body>\n</html>",
+            quizQ: "Berikut yang termasuk profesi bidang PPLG, KECUALI...",
+            quizOpt: ["Software Engineer", "UI/UX Designer", "Game Developer", "Dokter Hewan"],
+            quizAns: 3
+          },
+        ]
+      },
+      {
+        kode: "TI_PPLG_2",
+        title: "Kecakapan Kerja Dasar, K3 & Budaya Kerja",
+        subs: [
+          {
+            tag: "K3",
+            title: "Keselamatan dan Kesehatan Kerja (K3)",
+            penjelasan: "<p><b>K3</b> = Keselamatan dan Kesehatan Kerja. Di dunia IT, K3 menjaga tubuh tetap sehat walau lama di depan komputer.</p><div class=\"detail-list\"><ul><li>Posisi <b>monitor sejajar mata</b>, kursi ergonomis.</li><li>Aturan <b>20-20-20</b>: tiap 20 menit, lihat jarak 6 m selama 20 detik.</li><li>Rapikan kabel agar tidak korsleting / tersandung.</li></ul></div><div class=\"tip\">💡 Duduk terlalu lama berbahaya — sempatkan berdiri & peregangan.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>K3 di Dunia IT</h1>\n<p class=\"sub\">Tips Keselamatan & Kesehatan Kerja</p>\n<div class=\"box\">✅ Monitor sejajar mata<br>✅ Kursi ergonomis & punggung tegak<br>✅ Istirahat mata aturan 20-20-20<br>✅ Kabel rapi & stop kontak aman</div><div class=\"note\" id=\"o\">Timer mata 20-20-20.</div><button onclick=\"start()\">Mulai Pengingat Mata</button>\n</div>\n<script>\nfunction start(){var d=5;var o=document.getElementById('o');var t=setInterval(function(){o.innerText='Istirahatkan mata dalam '+d+' detik...';d--;if(d<0){clearInterval(t);o.innerText='👁️ Saatnya lihat jauh 20 detik!';}},1000);}\n<\/script>\n</body>\n</html>",
+            quizQ: "Aturan 20-20-20 dalam K3 dunia IT berguna untuk...",
+            quizOpt: ["Mengisi baterai laptop", "Mengistirahatkan mata dari layar", "Mempercepat internet", "Membersihkan keyboard"],
+            quizAns: 1
+          },
+          {
+            tag: "Budaya Kerja 5R",
+            title: "Budaya Kerja pada Industri PPLG (5R)",
+            penjelasan: "<p><b>Budaya kerja 5R</b> menjaga tempat & cara kerja tetap rapi dan efisien.</p><div class=\"detail-list\"><ul><li><b>Ringkas</b>: pisahkan barang perlu & tak perlu.</li><li><b>Rapi</b>: tata barang pada tempatnya.</li><li><b>Resik</b>: jaga kebersihan.</li><li><b>Rawat</b>: pertahankan kondisi baik.</li><li><b>Rajin</b>: jadikan kebiasaan.</li></ul></div><div class=\"tip\">💡 Di coding, 5R berarti kode rapi, terstruktur, dan mudah dibaca tim.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Budaya Kerja 5R</h1>\n<p class=\"sub\">Pilar Kerja Profesional</p>\n<div class=\"center\"><span class=\"pill\">Ringkas</span><span class=\"pill\">Rapi</span><span class=\"pill\">Resik</span><span class=\"pill\">Rawat</span><span class=\"pill\">Rajin</span></div><div class=\"note\" id=\"o\">Klik untuk arti tiap R.</div><button onclick=\"next()\">Penjelasan 5R</button>\n</div>\n<script>\nvar r=['Ringkas: buang yang tak perlu.','Rapi: semua ada tempatnya.','Resik: bersih dari kotoran.','Rawat: jaga agar tetap baik.','Rajin: lakukan terus-menerus.'];var i=0;function next(){document.getElementById('o').innerText=r[i];i=(i+1)%r.length;}next();\n<\/script>\n</body>\n</html>",
+            quizQ: "Urutan Budaya Kerja 5R yang benar adalah...",
+            quizOpt: ["Rajin, Rapi, Resik, Ringkas, Rawat", "Ringkas, Rapi, Resik, Rawat, Rajin", "Resik, Ringkas, Rawat, Rajin, Rapi", "Rapi, Rawat, Rajin, Resik, Ringkas"],
+            quizAns: 1
+          },
+          {
+            tag: "Tools PPLG",
+            title: "Tools (Perangkat) Pengembangan Perangkat Lunak & Gim",
+            penjelasan: "<p><b>Tools</b> adalah perangkat lunak yang membantu programmer bekerja.</p><div class=\"detail-list\"><ul><li><b>VS Code</b>: tempat menulis kode (code editor).</li><li><b>Git/GitHub</b>: menyimpan & berbagi kode (version control).</li><li><b>Figma</b>: mendesain tampilan (UI).</li><li><b>Postman</b>: menguji API.</li></ul></div><div class=\"tip\">💡 Menguasai tools membuat pekerjaan jauh lebih cepat & terorganisir.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Tools PPLG</h1>\n<p class=\"sub\">Perangkat Wajib Developer</p>\n<div class=\"grid\"><div class=\"card2\"><b>VS Code</b><br>Menulis kode.</div><div class=\"card2\"><b>Git &amp; GitHub</b><br>Simpan versi kode.</div><div class=\"card2\"><b>Figma</b><br>Desain UI/UX.</div><div class=\"card2\"><b>Postman</b><br>Uji API.</div></div><div class=\"note\" id=\"o\">Klik untuk fungsi tool.</div><button onclick=\"f()\">Fungsi Tool</button>\n</div>\n<script>\nvar t=['VS Code: editor kode ringan & populer.','Git: mencatat setiap perubahan kode.','Figma: membuat mockup tampilan aplikasi.','Postman: mengecek apakah API berjalan benar.'];var i=0;function f(){document.getElementById('o').innerText=t[i];i=(i+1)%t.length;}f();\n<\/script>\n</body>\n</html>",
+            quizQ: "Tool yang digunakan untuk menyimpan dan mengelola versi kode adalah...",
+            quizOpt: ["Figma", "Git / GitHub", "Photoshop", "Excel"],
+            quizAns: 1
+          },
+          {
+            tag: "Aset Desain",
+            title: "Pengelolaan Aset Desain",
+            penjelasan: "<p><b>Aset desain</b> adalah file pendukung aplikasi: gambar, ikon, font, audio, dan video.</p><div class=\"detail-list\"><ul><li>Simpan dalam folder rapi (assets/img, assets/font, assets/audio).</li><li>Gunakan format tepat: <b>PNG/SVG</b> (gambar), <b>MP3</b> (audio), <b>MP4</b> (video).</li><li>Beri nama file yang jelas (mis. tombol-mulai.png).</li></ul></div><div class=\"tip\">💡 Aset rapi = aplikasi mudah dikembangkan & file tidak tercecer.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Pengelolaan Aset</h1>\n<p class=\"sub\">Struktur Folder Aset</p>\n<pre>project/\n  index.html\n  assets/\n    <span class=\"str\">img/</span>   logo.png, ikon.svg\n    <span class=\"str\">font/</span>  poppins.ttf\n    <span class=\"str\">audio/</span> klik.mp3\n    <span class=\"str\">video/</span> intro.mp4</pre><div class=\"note\">Penamaan & penataan folder yang konsisten memudahkan kerja tim.</div>\n</div>\n</body>\n</html>",
+            quizQ: "Format file yang tepat untuk aset GAMBAR adalah...",
+            quizOpt: ["MP3", "PNG / SVG", "MP4", "DOCX"],
+            quizAns: 1
+          },
+          {
+            tag: "User Interface",
+            title: "User Interface (UI): Warna, Typography & Interaksi",
+            penjelasan: "<p><b>UI (User Interface)</b> adalah tampilan yang dilihat & disentuh pengguna.</p><div class=\"detail-list\"><ul><li><b>Warna</b>: punya makna (biru = aman, merah = bahaya).</li><li><b>Typography</b>: pemilihan & ukuran huruf agar mudah dibaca.</li><li><b>Audio/Video & interaksi</b>: efek klik, animasi, suara.</li></ul></div><div class=\"tip\">💡 UI menarik + UX nyaman = aplikasi yang disukai pengguna.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Elemen UI</h1>\n<p class=\"sub\">Warna, Huruf & Interaksi</p>\n<h3>Palet Warna</h3><div class=\"grid3\"><div class=\"swatch\" style=\"background:#1d4ed8\">Primary</div><div class=\"swatch\" style=\"background:#16a34a\">Success</div><div class=\"swatch\" style=\"background:#dc2626\">Danger</div></div><h3>Typography</h3><p style=\"font-size:1.4rem;font-weight:800\">Judul Besar</p><p style=\"font-size:.85rem;color:#4b667f\">Teks isi yang nyaman dibaca.</p><button onclick=\"this.innerText='✨ Tombol diklik!'\">Coba Interaksi (klik)</button>\n</div>\n</body>\n</html>",
+            quizQ: "Dalam UI, warna merah umumnya digunakan untuk menandakan...",
+            quizOpt: ["Aman / berhasil", "Bahaya / peringatan", "Netral", "Tidak ada arti"],
+            quizAns: 1
+          },
+          {
+            tag: "Algoritma",
+            title: "Konsep Dasar Algoritma Pemrograman",
+            penjelasan: "<p><b>Algoritma</b> adalah urutan langkah logis untuk menyelesaikan masalah — ditulis sebelum jadi kode.</p><div class=\"detail-list\"><ul><li>Ditulis dalam <b>pseudocode</b> atau <b>flowchart</b>.</li><li>Harus runtut, jelas, dan punya awal-akhir.</li><li>Contoh: algoritma menentukan lulus/tidak dari nilai.</li></ul></div><div class=\"tip\">💡 Kuasai algoritma dulu, bahasa pemrograman menyusul mudah.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Algoritma Dasar</h1>\n<p class=\"sub\">Pseudocode &rarr; Program</p>\n<pre>ALGORITMA CekLulus\n  INPUT nilai\n  JIKA nilai &ge; 75 MAKA\n     status = \"LULUS\"\n  SELAIN ITU\n     status = \"REMEDIAL\"\n  OUTPUT status\nSELESAI</pre><div class=\"center\">Masukkan nilai: <input id=\"n\" type=\"number\" value=\"80\" style=\"width:90px\"><button onclick=\"jalan()\" style=\"display:inline-block;margin-left:8px\">Cek</button></div><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction jalan(){var nilai=parseFloat(document.getElementById('n').value);var status=(nilai>=75)?'LULUS':'REMEDIAL';document.getElementById('o').innerText='Nilai: '+nilai+'\\nStatus: '+status;}jalan();\n<\/script>\n</body>\n</html>",
+            quizQ: "Algoritma sebaiknya dibuat... dalam proses pemrograman.",
+            quizOpt: ["Setelah program selesai", "Sebelum menulis kode (sebagai rancangan langkah)", "Tidak perlu dibuat", "Hanya saat error"],
+            quizAns: 1
+          },
+        ]
+      },
+      {
+        kode: "TI_PPLG_3",
+        title: "Teknologi Jaringan Komputer",
+        subs: [
+          {
+            tag: "Sistem Operasi",
+            title: "Sistem Operasi",
+            penjelasan: "<p><b>Sistem Operasi (OS)</b> adalah perangkat lunak utama yang mengatur seluruh kerja komputer.</p><div class=\"detail-list\"><ul><li>Menjembatani <b>pengguna</b> dengan <b>perangkat keras</b>.</li><li>Contoh OS komputer: <b>Windows, Linux, macOS</b>.</li><li>Contoh OS HP: <b>Android, iOS</b>.</li></ul></div><div class=\"tip\">💡 Tanpa OS, aplikasi tidak bisa berjalan di komputer.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Sistem Operasi</h1>\n<p class=\"sub\">Jenis & Fungsi OS</p>\n<div class=\"grid3\"><div class=\"card2\"><b>Windows</b><br>Paling umum dipakai.</div><div class=\"card2\"><b>Linux</b><br>Gratis, untuk server.</div><div class=\"card2\"><b>Android</b><br>OS smartphone.</div></div><div class=\"note\" id=\"o\">Klik untuk fungsi OS.</div><button onclick=\"f()\">Fungsi Sistem Operasi</button>\n</div>\n<script>\nvar t=['Mengatur memori (RAM).','Menjalankan aplikasi.','Mengelola file & folder.','Mengatur perangkat (printer, dll).'];var i=0;function f(){document.getElementById('o').innerText=t[i];i=(i+1)%t.length;}f();\n<\/script>\n</body>\n</html>",
+            quizQ: "Contoh sistem operasi untuk smartphone adalah...",
+            quizOpt: ["Windows 11", "Android", "Microsoft Excel", "Google Chrome"],
+            quizAns: 1
+          },
+          {
+            tag: "Perangkat Keras",
+            title: "Pengenalan Perangkat Keras Komputer",
+            penjelasan: "<p><b>Perangkat keras (hardware)</b> adalah komponen fisik komputer yang bisa disentuh.</p><div class=\"detail-list\"><ul><li><b>CPU</b>: otak komputer yang memproses data.</li><li><b>RAM</b>: memori sementara saat program berjalan.</li><li><b>Storage</b> (HDD/SSD): penyimpanan data permanen.</li><li><b>NIC</b>: kartu jaringan untuk koneksi internet.</li></ul></div><div class=\"tip\">💡 CPU cepat + RAM besar = komputer terasa lancar.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Perangkat Keras</h1>\n<p class=\"sub\">Komponen Utama Komputer</p>\n<table><tr><th>Komponen</th><th>Fungsi</th></tr><tr><td>CPU (Prosesor)</td><td>Memproses semua perhitungan</td></tr><tr><td>RAM</td><td>Menyimpan data sementara</td></tr><tr><td>SSD/HDD</td><td>Menyimpan data permanen</td></tr><tr><td>NIC / LAN Card</td><td>Menghubungkan ke jaringan</td></tr></table><div class=\"note\">Setiap komponen punya tugas berbeda namun saling bekerja sama.</div>\n</div>\n</body>\n</html>",
+            quizQ: "Komponen yang berfungsi sebagai 'otak' komputer adalah...",
+            quizOpt: ["RAM", "CPU (Prosesor)", "Monitor", "Keyboard"],
+            quizAns: 1
+          },
+          {
+            tag: "Instalasi Jaringan",
+            title: "Instalasi Jaringan Komputer",
+            penjelasan: "<p>Instalasi jaringan menghubungkan beberapa komputer agar bisa berbagi data & internet.</p><div class=\"detail-list\"><ul><li><b>Kabel UTP</b> + konektor <b>RJ-45</b> untuk koneksi kabel.</li><li><b>Switch</b> menghubungkan banyak komputer dalam satu jaringan lokal (LAN).</li><li><b>Router</b> menghubungkan jaringan lokal ke internet.</li></ul></div><div class=\"tip\">💡 Wi-Fi adalah jaringan tanpa kabel (nirkabel).</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Instalasi Jaringan</h1>\n<p class=\"sub\">Topologi Jaringan Dasar</p>\n<div class=\"flow\"><span class=\"step\">PC</span><span class=\"arr\">&mdash;</span><span class=\"step\">Switch</span><span class=\"arr\">&mdash;</span><span class=\"step\">Router</span><span class=\"arr\">&mdash;</span><span class=\"step\">Internet</span></div><div class=\"note\" id=\"o\">Klik untuk peran tiap perangkat.</div><button onclick=\"f()\">Peran Perangkat</button>\n</div>\n<script>\nvar t=['Switch: menghubungkan komputer dalam 1 jaringan lokal (LAN).','Router: menghubungkan LAN ke internet.','Kabel UTP + RJ-45: media transmisi kabel.'];var i=0;function f(){document.getElementById('o').innerText=t[i];i=(i+1)%t.length;}f();\n<\/script>\n</body>\n</html>",
+            quizQ: "Perangkat yang menghubungkan jaringan lokal (LAN) ke internet adalah...",
+            quizOpt: ["Switch", "Router", "Keyboard", "Monitor"],
+            quizAns: 1
+          },
+          {
+            tag: "IP Address",
+            title: "IP Address",
+            penjelasan: "<p><b>IP Address</b> adalah alamat unik setiap perangkat di jaringan, seperti alamat rumah.</p><div class=\"detail-list\"><ul><li>Format IPv4: 4 angka 0-255, mis. <b>192.168.1.10</b>.</li><li>Dibagi kelas: <b>A</b> (1-126), <b>B</b> (128-191), <b>C</b> (192-223).</li><li><b>Gateway</b>: pintu keluar jaringan menuju internet.</li></ul></div><div class=\"tip\">💡 Dua perangkat tidak boleh punya IP yang sama dalam satu jaringan.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>IP Address</h1>\n<p class=\"sub\">Simulasi Cek Kelas IP</p>\n<div class=\"out\" style=\"color:#38bdf8;text-align:center\">IP: 192.168.1.10 / 24 | Gateway: 192.168.1.1</div><div class=\"center\" style=\"margin-top:10px\">Cek IP: <input id=\"ip\" value=\"10.0.0.5\" style=\"width:140px\"><button onclick=\"cek()\" style=\"display:inline-block;margin-left:8px\">Cek Kelas</button></div><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction cek(){var ip=document.getElementById('ip').value.trim();var ok=ip.split('.').length===4;var okt=parseInt(ip.split('.')[0]);var k='Tidak valid';if(ok){if(okt>=1&&okt<=126)k='Kelas A';else if(okt>=128&&okt<=191)k='Kelas B';else if(okt>=192&&okt<=223)k='Kelas C';}document.getElementById('o').innerText=ip+' -> '+k;}cek();\n<\/script>\n</body>\n</html>",
+            quizQ: "IP Address 192.168.1.10 termasuk dalam kelas...",
+            quizOpt: ["Kelas A", "Kelas B", "Kelas C", "Kelas D"],
+            quizAns: 2
+          },
+          {
+            tag: "TCP/IP",
+            title: "Sistem TCP/IP",
+            penjelasan: "<p><b>TCP/IP</b> adalah kumpulan aturan (protokol) yang mengatur komunikasi data di internet.</p><div class=\"detail-list\"><ul><li><b>IP</b>: menentukan alamat tujuan data.</li><li><b>TCP</b>: memastikan data sampai lengkap & berurutan.</li><li>Data dikirim dalam potongan kecil bernama <b>paket</b>.</li></ul></div><div class=\"tip\">💡 Tanpa TCP/IP, internet tidak bisa saling 'berbicara'.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Sistem TCP/IP</h1>\n<p class=\"sub\">Perjalanan Data di Internet</p>\n<div class=\"flow\"><span class=\"step\">Data</span><span class=\"arr\">&rarr;</span><span class=\"step\">Dipecah jadi Paket</span><span class=\"arr\">&rarr;</span><span class=\"step\">Dikirim via IP</span><span class=\"arr\">&rarr;</span><span class=\"step\">Disusun ulang (TCP)</span></div><div class=\"note\" id=\"o\">Klik untuk simulasi pengiriman paket.</div><button onclick=\"kirim()\">Kirim Data</button>\n</div>\n<script>\nfunction kirim(){var o=document.getElementById('o');var n=0;var t=setInterval(function(){n++;o.innerText='Mengirim paket '+n+'/3 ...';if(n>=3){clearInterval(t);o.innerText='✅ Semua paket sampai & disusun ulang oleh TCP.';}},700);}\n<\/script>\n</body>\n</html>",
+            quizQ: "Dalam TCP/IP, data dikirim dalam bentuk potongan kecil yang disebut...",
+            quizOpt: ["Folder", "Paket", "Ikon", "Piksel"],
+            quizAns: 1
+          },
+        ]
+      },
+      {
+        kode: "TI_PPLG_4",
+        title: "Pemrograman Terstruktur",
+        subs: [
+          {
+            tag: "Konsep",
+            title: "Konsep Pemrograman Terstruktur",
+            penjelasan: "<p><b>Pemrograman terstruktur</b> menyusun program secara <b>runtut & rapi</b> dari atas ke bawah.</p><div class=\"detail-list\"><ul><li>Program dibaca berurutan (sequence).</li><li>Dipecah jadi bagian kecil (modular / fungsi).</li><li>Menghindari lompatan acak agar mudah dibaca.</li></ul></div><div class=\"tip\">💡 Kode terstruktur = mudah dipahami, diperbaiki, dan dikembangkan.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Pemrograman Terstruktur</h1>\n<p class=\"sub\">Alur Program Runtut</p>\n<pre><span class=\"cmt\">// Program dieksekusi berurutan, baris demi baris</span>\n<span class=\"num\">1.</span> Mulai\n<span class=\"num\">2.</span> Minta input nama\n<span class=\"num\">3.</span> Tampilkan salam\n<span class=\"num\">4.</span> Selesai</pre><button onclick=\"jalan()\">Jalankan Program</button><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction jalan(){var nama='Siswa PPLG';var o=document.getElementById('o');o.innerText='1) Mulai\\n2) Input nama = '+nama+'\\n3) Output: Halo, '+nama+'!\\n4) Selesai';}jalan();\n<\/script>\n</body>\n</html>",
+            quizQ: "Ciri utama pemrograman terstruktur adalah...",
+            quizOpt: ["Program ditulis acak", "Program disusun runtut & modular", "Tidak boleh pakai fungsi", "Hanya satu baris kode"],
+            quizAns: 1
+          },
+          {
+            tag: "Variabel & Tipe Data",
+            title: "Variabel, Tipe Data, dan Operator",
+            penjelasan: "<p><b>Variabel</b> adalah wadah untuk menyimpan data; <b>tipe data</b> menentukan jenis isinya.</p><div class=\"detail-list\"><ul><li><b>String</b>: teks, mis. \"Budi\".</li><li><b>Number</b>: angka, mis. 17.</li><li><b>Boolean</b>: benar/salah (true/false).</li><li><b>Operator</b>: + - * / untuk hitung, &gt; &lt; == untuk bandingkan.</li></ul></div><div class=\"tip\">💡 Pilih nama variabel yang jelas, mis. umur, bukan x.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Variabel & Operator</h1>\n<p class=\"sub\">Contoh Tipe Data & Perhitungan</p>\n<pre><span class=\"kw\">let</span> nama = <span class=\"str\">\"Budi\"</span>;  <span class=\"cmt\">// string</span>\n<span class=\"kw\">let</span> harga = <span class=\"num\">5000</span>;   <span class=\"cmt\">// number</span>\n<span class=\"kw\">let</span> jumlah = <span class=\"num\">3</span>;\n<span class=\"kw\">let</span> total = harga * jumlah;</pre><button onclick=\"hit()\">Hitung Total Belanja</button><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction hit(){var nama='Budi';var harga=5000;var jumlah=3;var total=harga*jumlah;document.getElementById('o').innerText='Pembeli : '+nama+'\\nHarga   : '+harga+'\\nJumlah  : '+jumlah+'\\nTotal   : Rp'+total;}hit();\n<\/script>\n</body>\n</html>",
+            quizQ: "Tipe data yang tepat untuk menyimpan teks \"Indonesia\" adalah...",
+            quizOpt: ["Number", "Boolean", "String", "Integer"],
+            quizAns: 2
+          },
+          {
+            tag: "Struktur Data",
+            title: "Struktur Data: Array (Statis) & Stack (Dinamis)",
+            penjelasan: "<p><b>Struktur data</b> adalah cara menyimpan banyak data sekaligus.</p><div class=\"detail-list\"><ul><li><b>Array</b>: kumpulan data dalam satu variabel, mis. [80, 90, 75].</li><li>Diakses lewat <b>index</b> mulai dari 0.</li><li><b>Stack</b>: tumpukan data — masuk terakhir, keluar pertama (LIFO).</li></ul></div><div class=\"tip\">💡 Bayangkan stack seperti tumpukan piring: ambil dari paling atas.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Struktur Data</h1>\n<p class=\"sub\">Array & Stack</p>\n<pre><span class=\"kw\">let</span> nilai = [<span class=\"num\">80</span>, <span class=\"num\">90</span>, <span class=\"num\">75</span>];\nnilai[<span class=\"num\">0</span>]  <span class=\"cmt\">// 80 (index pertama)</span>\nnilai.push(<span class=\"num\">100</span>); <span class=\"cmt\">// tambah ke akhir (stack)</span></pre><button onclick=\"demo()\">Jalankan Array & Stack</button><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction demo(){var nilai=[80,90,75];var first=nilai[0];nilai.push(100);var last=nilai.pop();document.getElementById('o').innerText='Array awal : 80,90,75\\nIndex ke-0 : '+first+'\\nSetelah push(100) lalu pop()\\nData keluar (LIFO): '+last;}demo();\n<\/script>\n</body>\n</html>",
+            quizQ: "Untuk mengakses elemen PERTAMA sebuah array kita menggunakan index...",
+            quizOpt: ["1", "0", "-1", "100"],
+            quizAns: 1
+          },
+          {
+            tag: "Percabangan & Perulangan",
+            title: "Struktur Kontrol: Percabangan & Perulangan",
+            penjelasan: "<p><b>Struktur kontrol</b> mengatur alur jalannya program.</p><div class=\"detail-list\"><ul><li><b>Percabangan</b> (if-else): memilih aksi berdasarkan kondisi.</li><li><b>Perulangan</b> (for/while): mengulang aksi berkali-kali.</li><li>Contoh: ulangi cek nilai untuk semua siswa.</li></ul></div><div class=\"tip\">💡 Percabangan = memutuskan; Perulangan = mengulang.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Percabangan & Perulangan</h1>\n<p class=\"sub\">Hitung Rata-rata & Status</p>\n<pre><span class=\"kw\">let</span> nilai = [<span class=\"num\">80</span>,<span class=\"num\">90</span>,<span class=\"num\">70</span>,<span class=\"num\">100</span>];\n<span class=\"kw\">let</span> total = <span class=\"num\">0</span>;\n<span class=\"kw\">for</span>(<span class=\"kw\">let</span> i=<span class=\"num\">0</span>; i&lt;nilai.length; i++) total += nilai[i];\n<span class=\"kw\">let</span> rata = total / nilai.length;\n<span class=\"kw\">if</span>(rata &ge; <span class=\"num\">75</span>) ... <span class=\"kw\">else</span> ...</pre><button onclick=\"run()\">Jalankan Program</button><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction run(){var nilai=[80,90,70,100];var total=0;for(var i=0;i<nilai.length;i++){total+=nilai[i];}var rata=total/nilai.length;var status=(rata>=75)?'LULUS':'REMEDIAL';document.getElementById('o').innerText='Nilai   : '+nilai.join(', ')+'\\nTotal   : '+total+'\\nRata    : '+rata+'\\nStatus  : '+status;}run();\n<\/script>\n</body>\n</html>",
+            quizQ: "Struktur kontrol yang dipakai untuk MENGULANG proses adalah...",
+            quizOpt: ["if-else", "Perulangan (for/while)", "Variabel", "String"],
+            quizAns: 1
+          },
+        ]
+      },
+      {
+        kode: "TI_PPLG_5",
+        title: "Pemrograman Berorientasi Objek (PBO)",
+        subs: [
+          {
+            tag: "Konsep PBO",
+            title: "Konsep Dasar Pemrograman Berorientasi Objek (PBO)",
+            penjelasan: "<p><b>PBO</b> memodelkan program berdasarkan <b>objek</b> di dunia nyata (mobil, hewan, siswa).</p><div class=\"detail-list\"><ul><li>Setiap objek punya <b>data</b> (sifat) dan <b>perilaku</b> (aksi).</li><li>Membuat program besar lebih rapi & mudah dipakai ulang.</li><li>Lawan dari pemrograman terstruktur biasa.</li></ul></div><div class=\"tip\">💡 Contoh objek 'Mobil': data = warna, perilaku = jalan().</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Konsep PBO</h1>\n<p class=\"sub\">Objek = Data + Perilaku</p>\n<div class=\"grid\"><div class=\"card2\"><b>Objek: Mobil</b><br>Data: merek, warna<br>Perilaku: jalan(), rem()</div><div class=\"card2\"><b>Objek: Siswa</b><br>Data: nama, nilai<br>Perilaku: belajar()</div></div><div class=\"note\">PBO membungkus data &amp; perilaku menjadi satu kesatuan objek.</div>\n</div>\n</body>\n</html>",
+            quizQ: "Dalam PBO, sebuah objek terdiri dari...",
+            quizOpt: ["Hanya data", "Hanya perilaku", "Data (sifat) dan perilaku (aksi)", "Tidak ada keduanya"],
+            quizAns: 2
+          },
+          {
+            tag: "Class & Object",
+            title: "Class, Object, dan Method",
+            penjelasan: "<p><b>Class</b> adalah cetak biru; <b>Object</b> adalah wujud nyatanya; <b>Method</b> adalah aksinya.</p><div class=\"detail-list\"><ul><li><b>Class</b>: rancangan (mis. class Mobil).</li><li><b>Object</b>: hasil dari class (mis. avanza).</li><li><b>Method</b>: fungsi di dalam class (mis. nyalakan()).</li></ul></div><div class=\"tip\">💡 Class = resep kue, Object = kue yang sudah jadi.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Class, Object & Method</h1>\n<p class=\"sub\">Membuat Objek dari Class</p>\n<pre><span class=\"kw\">class</span> <span class=\"cls\">Mobil</span> {\n  <span class=\"kw\">constructor</span>(merek){ <span class=\"kw\">this</span>.merek = merek; }\n  nyalakan(){ <span class=\"kw\">return</span> <span class=\"kw\">this</span>.merek + <span class=\"str\">\" siap jalan\"</span>; }\n}\n<span class=\"kw\">let</span> avanza = <span class=\"kw\">new</span> <span class=\"cls\">Mobil</span>(<span class=\"str\">\"Toyota Avanza\"</span>);</pre><button onclick=\"go()\">Buat Object & Panggil Method</button><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nclass Mobil{constructor(merek){this.merek=merek;}nyalakan(){return this.merek+' siap jalan';}}function go(){var avanza=new Mobil('Toyota Avanza');var brio=new Mobil('Honda Brio');document.getElementById('o').innerText=avanza.nyalakan()+'\\n'+brio.nyalakan();}go();\n<\/script>\n</body>\n</html>",
+            quizQ: "Dalam PBO, 'cetak biru' atau rancangan untuk membuat objek disebut...",
+            quizOpt: ["Method", "Class", "Variabel", "Array"],
+            quizAns: 1
+          },
+          {
+            tag: "3 Pilar PBO",
+            title: "Encapsulation, Inheritance, dan Polymorphism",
+            penjelasan: "<p>Tiga pilar utama PBO:</p><div class=\"detail-list\"><ul><li><b>Encapsulation</b>: membungkus & menyembunyikan data.</li><li><b>Inheritance</b>: class anak mewarisi sifat class induk.</li><li><b>Polymorphism</b>: method sama, hasil berbeda tiap objek.</li></ul></div><div class=\"tip\">💡 Inheritance menghemat kode karena sifat induk dipakai ulang.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>3 Pilar PBO</h1>\n<p class=\"sub\">Inheritance & Polymorphism</p>\n<pre><span class=\"kw\">class</span> <span class=\"cls\">Hewan</span>{ bersuara(){<span class=\"kw\">return</span> <span class=\"str\">\"...\"</span>;} }\n<span class=\"kw\">class</span> <span class=\"cls\">Kucing</span> <span class=\"kw\">extends</span> <span class=\"cls\">Hewan</span>{ bersuara(){<span class=\"kw\">return</span> <span class=\"str\">\"Meong\"</span>;} }\n<span class=\"kw\">class</span> <span class=\"cls\">Anjing</span> <span class=\"kw\">extends</span> <span class=\"cls\">Hewan</span>{ bersuara(){<span class=\"kw\">return</span> <span class=\"str\">\"Guk\"</span>;} }</pre><button onclick=\"go()\">Jalankan Polymorphism</button><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nclass Hewan{constructor(n){this.n=n;}bersuara(){return this.n+': ...';}}class Kucing extends Hewan{bersuara(){return this.n+': Meong!';}}class Anjing extends Hewan{bersuara(){return this.n+': Guk guk!';}}function go(){var arr=[new Kucing('Kucing'),new Anjing('Anjing')];document.getElementById('o').innerText=arr.map(function(h){return h.bersuara();}).join('\\n');}go();\n<\/script>\n</body>\n</html>",
+            quizQ: "Pewarisan sifat dari class induk ke class anak disebut...",
+            quizOpt: ["Encapsulation", "Inheritance", "Polymorphism", "Abstraction"],
+            quizAns: 1
+          },
+          {
+            tag: "Package & Interface",
+            title: "Penggunaan Package dan Interface",
+            penjelasan: "<p><b>Package</b> mengelompokkan kode; <b>Interface</b> adalah kontrak aturan yang harus dipenuhi class.</p><div class=\"detail-list\"><ul><li><b>Package</b>: folder berisi class-class sejenis (mis. package model).</li><li><b>Interface</b>: daftar method yang wajib ada, tanpa isi.</li><li>Membuat kode besar tetap rapi & konsisten.</li></ul></div><div class=\"tip\">💡 Interface seperti 'janji': class yang memakainya wajib menepati method-nya.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Package & Interface</h1>\n<p class=\"sub\">Mengelompokkan & Kontrak Kode</p>\n<pre><span class=\"cmt\">// Package = folder pengelompokan</span>\ncom.toko/\n  <span class=\"str\">model/</span>  Produk.js, User.js\n  <span class=\"str\">service/</span> Pembayaran.js\n\n<span class=\"cmt\">// Interface = kontrak method wajib</span>\n<span class=\"kw\">interface</span> <span class=\"cls\">AlatBayar</span> { bayar(); }</pre><div class=\"note\">Class yang memakai interface AlatBayar WAJIB punya method bayar().</div>\n</div>\n</body>\n</html>",
+            quizQ: "Interface dalam PBO berfungsi sebagai...",
+            quizOpt: ["Tempat menyimpan gambar", "Kontrak / aturan method yang wajib dipenuhi class", "Nama variabel", "Jenis perulangan"],
+            quizAns: 1
+          },
+          {
+            tag: "Exception Handling",
+            title: "Exception Handling (Penanganan Error)",
+            penjelasan: "<p><b>Exception handling</b> menangani error agar program tidak langsung mati saat terjadi kesalahan.</p><div class=\"detail-list\"><ul><li>Gunakan blok <b>try</b> untuk kode berisiko error.</li><li>Gunakan <b>catch</b> untuk menangani error-nya.</li><li>Program tetap berjalan & memberi pesan ramah ke pengguna.</li></ul></div><div class=\"tip\">💡 Contoh error: pembagian dengan nol atau input kosong.</div>",
+            code: "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n<meta charset=\"UTF-8\">\n<style>\n*{box-sizing:border-box}\nbody{font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:22px;background:linear-gradient(135deg,#eff6ff,#f8fbff);color:#17324a}\n.wrap{max-width:760px;margin:auto}\nh1{color:#1d4ed8;text-align:center;font-size:1.3rem;margin:0 0 2px}\n.sub{text-align:center;color:#4b667f;margin-bottom:16px;font-size:.88rem}\nh3{color:#1e3a8a;margin:16px 0 8px;font-size:1rem}\n.box{background:#fff;border:1px solid #dbe6f1;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 6px 14px rgba(37,99,235,.06)}\n.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}\n.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #dbe6f1;padding:6px 12px;border-radius:30px;margin:3px;font-size:.82rem;font-weight:600}\n.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:12px 0}\n.step{background:#1d4ed8;color:#fff;padding:7px 12px;border-radius:24px;font-size:.8rem;font-weight:600}\n.arr{color:#94a3b8;font-weight:700}\npre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;line-height:1.5;font-size:13px;margin:8px 0}\n.kw{color:#f9a8d4}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#64748b}.cls{color:#7dd3fc}\nbutton{background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:30px;font-weight:700;cursor:pointer;display:block;margin:12px auto 0;font-size:.9rem}\ninput,select{padding:8px;border:1px solid #dbe6f1;border-radius:10px;font-size:.9rem}\n.out{background:#0f172a;color:#86efac;font-family:monospace;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;min-height:22px;font-size:13px}\n.center{text-align:center}\n.note{background:#eff6ff;border-left:4px solid #2563eb;padding:10px 12px;border-radius:10px;font-size:.86rem;margin:8px 0}\ntable{width:100%;border-collapse:collapse;margin:8px 0}\ntd,th{border:1px solid #dbe6f1;padding:6px 8px;font-size:.82rem;text-align:left}\nth{background:#eff6ff;color:#1e3a8a}\n.swatch{height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700}\n.card2{background:#fff;border:1px solid #dbe6f1;border-radius:12px;padding:10px}\n.card2 b{color:#1e3a8a}\n.good{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;color:#15803d;font-size:.84rem}\n.bad{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px;color:#b91c1c;font-size:.84rem}\n</style>\n</head>\n<body>\n<div class=\"wrap\">\n<h1>Exception Handling</h1>\n<p class=\"sub\">try - catch</p>\n<pre><span class=\"kw\">try</span> {\n  <span class=\"kw\">let</span> hasil = <span class=\"num\">10</span> / angka;\n  <span class=\"kw\">if</span>(isNaN(hasil)) <span class=\"kw\">throw</span> <span class=\"kw\">new</span> Error(<span class=\"str\">\"Input bukan angka\"</span>);\n} <span class=\"kw\">catch</span>(e) {\n  console.log(<span class=\"str\">\"Error: \"</span> + e.message);\n}</pre><div class=\"center\">Bagi 10 dengan: <input id=\"a\" value=\"abc\" style=\"width:90px\"><button onclick=\"go()\" style=\"display:inline-block;margin-left:8px\">Hitung</button></div><div class=\"out\" id=\"o\"></div>\n</div>\n<script>\nfunction go(){var raw=document.getElementById('a').value;var o=document.getElementById('o');try{var angka=Number(raw);if(raw.trim()===''||isNaN(angka))throw new Error('Input bukan angka yang valid');if(angka===0)throw new Error('Tidak bisa dibagi nol');o.innerText='Hasil 10/'+angka+' = '+(10/angka);}catch(e){o.style.color='#f87171';o.innerText='⚠️ Error: '+e.message+' (program tetap aman)';}}go();\n<\/script>\n</body>\n</html>",
+            quizQ: "Blok yang digunakan untuk MENANGANI error dalam exception handling adalah...",
+            quizOpt: ["try", "catch", "for", "class"],
+            quizAns: 1
+          },
+        ]
+      },
+    ];
+
+    const materiNav = document.getElementById('materiNav');
+    const subNav = document.getElementById('subNav');
+    const materiTitle = document.getElementById('materiTitle');
+    const materiDesc = document.getElementById('materiDesc');
+    const codeEditor = document.getElementById('codeEditor');
+    const previewFrame = document.getElementById('previewFrame');
+    const runBtn = document.getElementById('runBtn');
+    const quizContainer = document.getElementById('quizContainer');
+    const submitQuizBtn = document.getElementById('submitQuizBtn');
+    const quizFeedback = document.getElementById('quizFeedback');
+    const quizTitle = document.getElementById('quizTitle');
+    const progressText = document.getElementById('progressText');
+    const scoreText = document.getElementById('scoreText');
+
+    let currentMateri = 0, currentSub = 0, selectedAnswer = null, totalPoints = 0;
+    const totalSubs = materiData.reduce((a, m) => a + m.subs.length, 0);
+    function freshCompleted() { return materiData.map(m => m.subs.map(() => false)); }
+    let completed = freshCompleted();
+
+    try {
+        const s = JSON.parse(localStorage.getItem('pplg2_state') || 'null');
+        if (s && Array.isArray(s.completed) && s.completed.length === materiData.length &&
+            s.completed.every((a, i) => Array.isArray(a) && a.length === materiData[i].subs.length)) {
+            completed = s.completed;
+            totalPoints = s.points || 0;
+            currentMateri = s.cm || 0;
+            currentSub = s.cs || 0;
+        }
+    } catch (e) { console.log('state error', e); }
+
+    function save() {
+        localStorage.setItem('pplg2_state', JSON.stringify({
+            cm: currentMateri, cs: currentSub, completed: completed, points: totalPoints
+        }));
+    }
+
+    function pertemuanNo(m, s) {
+        let n = 0;
+        for (let i = 0; i < m; i++) n += materiData[i].subs.length;
+        return n + s + 1;
+    }
+    function completedCount() {
+        return completed.reduce((a, arr) => a + arr.filter(Boolean).length, 0);
+    }
+
+    function updateUI() {
+        const pct = Math.round(completedCount() / totalSubs * 100);
+        progressText.innerHTML = `📊 Progres: ${pct}% (${completedCount()}/${totalSubs} pertemuan)`;
+        scoreText.innerHTML = `🏆 Poin: ${totalPoints}`;
+    }
+
+    function renderMateriNav() {
+        materiNav.innerHTML = '';
+        materiData.forEach((m, i) => {
+            const b = document.createElement('button');
+            const done = completed[i].every(Boolean);
+            b.className = 'week-btn' + (i === currentMateri ? ' active' : '') + (done ? ' completed' : '');
+            b.innerHTML = `📚 Materi ${i + 1}`;
+            b.onclick = () => { currentMateri = i; currentSub = 0; selectedAnswer = null; save(); renderAll(); };
+            materiNav.appendChild(b);
+        });
+    }
+
+    function renderSubNav() {
+        subNav.innerHTML = '';
+        const subs = materiData[currentMateri].subs;
+        subs.forEach((s, i) => {
+            const b = document.createElement('button');
+            const done = completed[currentMateri][i];
+            b.className = 'sub-btn' + (i === currentSub ? ' active' : '') + (done ? ' completed' : '');
+            b.innerHTML = `Pertemuan ${pertemuanNo(currentMateri, i)} \u00b7 ${s.tag}${done ? ' \u2713' : ''}`;
+            b.onclick = () => { currentSub = i; selectedAnswer = null; save(); renderAll(); };
+            subNav.appendChild(b);
+        });
+    }
+
+    function loadSub() {
+        const m = materiData[currentMateri];
+        const s = m.subs[currentSub];
+        materiTitle.innerHTML = `Materi ${currentMateri + 1}.${currentSub + 1} \u2014 ${s.title}`;
+        materiDesc.innerHTML =
+            `<div class="materi-label">Pertemuan ${pertemuanNo(currentMateri, currentSub)} \u00b7 ${m.kode} \u00b7 Kurikulum SMK 2026</div>` +
+            s.penjelasan;
+        codeEditor.value = s.code;
+        runCode();
+
+        selectedAnswer = null;
+        quizTitle.innerHTML = `📝 Kuis Pertemuan ${pertemuanNo(currentMateri, currentSub)} (${s.tag})`;
+        let html = `<p><strong>Soal:</strong> ${s.quizQ}</p>`;
+        s.quizOpt.forEach((o, idx) => {
+            html += `<div class="quiz-option" data-opt="${idx}">${String.fromCharCode(65 + idx)}. ${o}</div>`;
+        });
+        quizContainer.innerHTML = html;
+        document.querySelectorAll('.quiz-option').forEach(el => {
+            el.onclick = function () {
+                document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedAnswer = parseInt(this.dataset.opt);
+            };
+        });
+
+        if (completed[currentMateri][currentSub]) {
+            quizFeedback.innerHTML = "\u2705 Pertemuan ini sudah selesai (+10 poin).";
+            quizFeedback.style.background = "#f0fdf4"; quizFeedback.style.color = "#15803d"; quizFeedback.style.border = "1px solid #bbf7d0";
+            submitQuizBtn.disabled = true; submitQuizBtn.style.opacity = "0.5";
+        } else {
+            quizFeedback.innerHTML = ""; quizFeedback.style.border = "1px solid var(--line)";
+            submitQuizBtn.disabled = false; submitQuizBtn.style.opacity = "1";
+        }
+    }
+
+    function renderAll() { renderMateriNav(); renderSubNav(); loadSub(); updateUI(); }
+
+    function runCode() {
+        const d = previewFrame.contentWindow.document;
+        d.open(); d.write(codeEditor.value); d.close();
+    }
+
+    function submitQuiz() {
+        const s = materiData[currentMateri].subs[currentSub];
+        if (completed[currentMateri][currentSub]) return;
+        if (selectedAnswer === null) {
+            quizFeedback.innerHTML = "\u274c Pilih jawaban terlebih dahulu!";
+            quizFeedback.style.background = "#fef2f2"; quizFeedback.style.color = "#b91c1c"; quizFeedback.style.border = "1px solid #fecaca";
+            return;
+        }
+        if (selectedAnswer === s.quizAns) {
+            completed[currentMateri][currentSub] = true;
+            totalPoints += 10; save(); updateUI(); renderMateriNav(); renderSubNav();
+            quizFeedback.innerHTML = "🎉 Jawaban benar! +10 poin.";
+            quizFeedback.style.background = "#f0fdf4"; quizFeedback.style.color = "#15803d"; quizFeedback.style.border = "1px solid #bbf7d0";
+            submitQuizBtn.disabled = true; submitQuizBtn.style.opacity = "0.5";
+        } else {
+            quizFeedback.innerHTML = `\u274c Belum tepat. Jawaban benar: ${String.fromCharCode(65 + s.quizAns)}. Coba lagi!`;
+            quizFeedback.style.background = "#fef2f2"; quizFeedback.style.color = "#b91c1c"; quizFeedback.style.border = "1px solid #fecaca";
+        }
+    }
+
+    runBtn.addEventListener('click', runCode);
+    submitQuizBtn.addEventListener('click', submitQuiz);
+    renderAll();
+
+</script>
+</body>
+</html>
