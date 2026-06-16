@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPLG Playground: Media Interaktif PPLG SMK</title>
     <style>
-        :root {
-            --bg: #f4f8fc;
-            --panel: #ffffff;
-            --panel-2: #f8fbff;
+:root {
+            --danger: #b91c1c;
             --line: #dbe6f1;
             --gold: #1d4ed8;
             --gold-2: #2563eb;
@@ -16,9 +14,77 @@
             --accent: #1e3a8a;
             --text: #17324a;
             --muted: #4b667f;
+
+
+
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* input siswa + state per NIS */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            z-index: 9999;
+        }
+        .modal {
+            width: 100%;
+            max-width: 520px;
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+        }
+        .modal h2 {
+            color: #1e3a8a;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .modal .row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .modal input {
+            flex: 1 1 220px;
+            min-width: 180px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            font-size: 0.95rem;
+        }
+        .modal .hint {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.35;
+        }
+        .btn-secondary {
+            background: #ffffff;
+            color: #17324a;
+            border: 1px solid var(--line);
+            box-shadow: none;
+        }
+        .btn-danger {
+            background: #fee2e2;
+            color: var(--danger);
+            border: 1px solid #fecaca;
+            box-shadow: none;
+        }
+
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -532,6 +598,27 @@
 </head>
 <body>
 <div class="container">
+    <!-- INPUT SISWA (GANTI IDENTITAS) -->
+    <div id="siswaOverlay" class="overlay">
+        <div class="modal">
+            <h2>Masukkan identitas siswa</h2>
+            <div class="row">
+                <input id="nisInput" type="text" maxlength="30" placeholder="Nama / NIS" />
+                <button id="startSiswaBtn" style="margin-top:0;">Mulai</button>
+            </div>
+            <div class="hint">
+                Progres akan tersimpan berdasarkan identitas ini (tanpa login, hanya localStorage).
+            </div>
+            <div id="siswaErr" class="hint" style="color:#b91c1c; display:none; margin-top:10px;"></div>
+        </div>
+    </div>
+
+    <div id="siswaBar" class="dashboard" style="margin-bottom:16px;">
+        <span id="siswaNameText">👤 Siswa: -</span>
+        <span style="opacity:0.9;">🎯 Simpan progres per NIS</span>
+        <button id="gantiSiswaBtn" class="btn-secondary" style="margin-top:0; padding:7px 14px; border-radius:999px;">Ganti Siswa</button>
+    </div>
+
     <!-- BANNER JUDUL -->
     <div class="app-title">
         <div class="brand"><span class="logo-mark">🎮</span> PPLG Playground</div>
@@ -893,19 +980,58 @@
     function freshCompleted() { return materiData.map(m => m.subs.map(() => false)); }
     let completed = freshCompleted();
 
-    try {
-        const s = JSON.parse(localStorage.getItem('pplg2_state') || 'null');
-        if (s && Array.isArray(s.completed) && s.completed.length === materiData.length &&
-            s.completed.every((a, i) => Array.isArray(a) && a.length === materiData[i].subs.length)) {
-            completed = s.completed;
-            totalPoints = s.points || 0;
-            currentMateri = s.cm || 0;
-            currentSub = s.cs || 0;
-        }
-    } catch (e) { console.log('state error', e); }
+    // State per identitas siswa (tanpa login, GitHub Pages tidak punya backend)
+    let studentKey = null;
+    function normalizeKey(str) {
+        return String(str || '')
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, '_')
+            .replace(/[^a-z0-9_\-]/g, '')
+            .slice(0, 40);
+    }
+    function stateKey() {
+        return `pplg2_state_${studentKey}`;
+    }
+
+    // overlay/input siswa
+    const siswaOverlay = document.getElementById('siswaOverlay');
+    const nisInput = document.getElementById('nisInput');
+    const startSiswaBtn = document.getElementById('startSiswaBtn');
+    const siswaErr = document.getElementById('siswaErr');
+    const siswaNameText = document.getElementById('siswaNameText');
+    const gantiSiswaBtn = document.getElementById('gantiSiswaBtn');
+
+    function showSiswaOverlay() {
+        siswaErr.style.display = 'none';
+        siswaOverlay.style.display = 'flex';
+    }
+    function hideSiswaOverlay() {
+        siswaOverlay.style.display = 'none';
+    }
+
+    function loadStudentState() {
+        completed = freshCompleted();
+        totalPoints = 0;
+        currentMateri = 0;
+        currentSub = 0;
+
+        if (!studentKey) return;
+        try {
+            const s = JSON.parse(localStorage.getItem(stateKey()) || 'null');
+            if (s && Array.isArray(s.completed) && s.completed.length === materiData.length &&
+                s.completed.every((a, i) => Array.isArray(a) && a.length === materiData[i].subs.length)) {
+                completed = s.completed;
+                totalPoints = s.points || 0;
+                currentMateri = s.cm || 0;
+                currentSub = s.cs || 0;
+            }
+        } catch (e) { console.log('state error', e); }
+    }
 
     function save() {
-        localStorage.setItem('pplg2_state', JSON.stringify({
+        if (!studentKey) return;
+        localStorage.setItem(stateKey(), JSON.stringify({
             cm: currentMateri, cs: currentSub, completed: completed, points: totalPoints
         }));
     }
@@ -1012,9 +1138,67 @@
         }
     }
 
+    // overlay/input siswa handlers
+    function setStudentIdentity(key, rawName) {
+        studentKey = key;
+        const display = rawName ? String(rawName) : key;
+        siswaNameText.textContent = `👤 Siswa: ${display}`;
+        loadStudentState();
+        // jika belum ada state tersimpan, tampilkan overlay konten tapi tanpa "null"
+        hideSiswaOverlay();
+        renderAll();
+    }
+
+    function ensureStudentKey() {
+        const raw = nisInput.value;
+        const nKey = normalizeKey(raw);
+        if (!nKey || nKey.length < 3) {
+            siswaErr.textContent = 'Masukkan Nama/NIS minimal 3 karakter.';
+            siswaErr.style.display = 'block';
+            return null;
+        }
+        return nKey;
+    }
+
+    startSiswaBtn.addEventListener('click', () => {
+        siswaErr.style.display = 'none';
+        const nKey = ensureStudentKey();
+        if (!nKey) return;
+        setStudentIdentity(nKey, nisInput.value);
+    });
+
+    nisInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') startSiswaBtn.click();
+    });
+
+    gantiSiswaBtn.addEventListener('click', () => {
+        showSiswaOverlay();
+    });
+
+    // optional: auto-load last used student (if any)
+    (function tryAutoLoadLastStudent() {
+        try {
+            const last = localStorage.getItem('pplg2_last_student');
+            if (last) {
+                studentKey = String(last);
+                siswaNameText.textContent = `👤 Siswa: ${last}`;
+                loadStudentState();
+                hideSiswaOverlay();
+                renderAll();
+            }
+        } catch (e) {}
+    })();
+
     runBtn.addEventListener('click', runCode);
     submitQuizBtn.addEventListener('click', submitQuiz);
     renderAll();
+
+    // persist last student when set
+    const _origSetStudentIdentity = setStudentIdentity;
+    setStudentIdentity = function (key, rawName) {
+        _origSetStudentIdentity(key, rawName);
+        try { localStorage.setItem('pplg2_last_student', key); } catch (e) {}
+    };
 
 </script>
 </body>
